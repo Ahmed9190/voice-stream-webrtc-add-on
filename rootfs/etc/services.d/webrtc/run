@@ -1,0 +1,29 @@
+#!/bin/bash
+with-contenv bashio
+
+echo "Starting Voice Stream WebRTC Server..."
+
+# Generate Certificates if needed
+echo "Checking/Generating LAN Certificates..."
+/usr/bin/generate_lan_cert.sh
+
+# Ensure the app can find them
+# If user provided /ssl/cert.pem, we favor that (via symlink if not already set up)
+# The generator writes to /data/ssl
+# The app expects ./ssl (symlinked to /app/ssl -> /ssl in Dockerfile)
+# But we need to make sure /ssl points to something valid if user didn't mount it.
+
+# In standard HA, /ssl is read-only.
+# If /ssl/cert.pem exists, we use it.
+if [ -f "/ssl/cert.pem" ]; then
+    echo "Using user-provided certificates in /ssl"
+    # /app/ssl -> /ssl (default from Dockerfile)
+else
+    echo "Using generated certificates in /data/ssl"
+    # We need to point /app/ssl to /data/ssl
+    # Since /app/ssl is a symlink to /ssl, we can change it to point to /data/ssl
+    ln -sfn /data/ssl /app/ssl
+fi
+
+cd /app
+exec ./webrtc_server

@@ -1,6 +1,6 @@
 # Dockerfile for Voice Stream WebRTC Add-on
 
-ARG BUILD_FROM
+ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base:latest
 
 # ------------------------------------------------------------------------------
 # Build Stage

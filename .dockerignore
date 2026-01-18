@@ -1,0 +1,7 @@
+target/
+.git/
+ssl/
+*.pem
+*.log
+.github/
+README.md

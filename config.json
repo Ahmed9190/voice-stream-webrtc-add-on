@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "slug": "voice_stream_webrtc",
   "description": "A WebRTC streaming server add-on written in Rust.",
-  "url": "https://github.com/Ahmed9190/voice-stream-webrtc-add-on",
+  "url": "https://github.com/Ahmed9190/home-assistant-docker-add-on",
   "startup": "services",
   "boot": "auto",
   "arch": ["aarch64", "amd64"],
